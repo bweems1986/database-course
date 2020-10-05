@@ -11,7 +11,6 @@ const config = {
 const pool = new Pool(config);
 
 const getWorkshops = () => {
-  //not correct output, giving us workshop: workshop for each workshop, need just the workshop name
   return new Promise(function (resolve, reject) {
     pool.query("SELECT DISTINCT workshop FROM workshops", (error, results) => {
       if (error) {
@@ -22,7 +21,6 @@ const getWorkshops = () => {
   });
 };
 
-//TODO: GET THIS GUY TO RETURN ATTENDEES BASED ON WORKSHOP PROVIDED BY CLIENT
 const getAttendees = (workshop) => {
   return new Promise(function (resolve, reject) {
     let output = [];
@@ -42,7 +40,6 @@ const getAttendees = (workshop) => {
   });
 };
 
-//this will need to change to allow addition of attendees to existing workshops
 const addAttendee = (body) => {
   return new Promise(function (resolve, reject) {
     const { workshop, attendee } = body;

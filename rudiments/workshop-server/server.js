@@ -20,8 +20,6 @@ app.get('/hello', (req, res) => {
 });
 
 //get all workshops
-//TODO: this is currently working to return all rows, but not specific attendees by workshop
-//TODO: ADD LOGIC TO CHECK FOR A WORKSHOP IN CLIENT REQUEST BODY, OTHERWISE RETURN ALL WORKSHOPS
 app.get('/api',  (req, res) => {
 
   if(!req.query.workshop){
@@ -31,7 +29,7 @@ app.get('/api',  (req, res) => {
       for(const workshop of response ){
         output.push(workshop.workshop);
       }
-      res.status(200).send({workshops: output});//this needs to be tweaked for correct output
+      res.status(200).send({workshops: output});
     })
     .catch( error => {
       res.status(500).send(error);
@@ -49,7 +47,6 @@ app.get('/api',  (req, res) => {
 });
 
 //create workshops
-//WHOOPSIE is in our model file
 app.post('/api', (req, res) => {
   workshop_model.addAttendee(req.body)
     .then(response => {
@@ -64,18 +61,3 @@ app.listen(app.get("port"), () => {
   console.log(`Find the server at: http://localhost:${app.get("port")}/`); 
 });
 
-
-
-
-
-// pool
-//         .query(template, [req.query.q])
-//         .then(res => console.log(res.rows[0].q)) // brianc
-//         .catch(err => console.error('Error executing query', err.stack))
-//   }
-//   else{
-//     //return all workshops
-//     pool
-//       .query(template, [req.query.q]) //sql query for data
-//       .then(res => response.rows[0].q) //we got a successful response from the DB
-//       .catch(res.json({ status: "error" })); //w
