@@ -33,36 +33,52 @@ const staff = [{name: 'Stephen Davies', role: "Professor",  department: "Compute
 */
 
 const getNumber = (person, book) => {
-    // TO DO
-    return ("not found");
+    let returnValue = 'not found';
+
+    // itereate over book objects to find a name equal to the person passed in
+    for(const contact of book){
+        if(contact.name === person){  //if we find a match then update return value
+            returnValue = contact.phone; 
+        }
+    }
+
+    return returnValue;
+
 }
+
+getNumber('Clara', phonebook);
+
+   
 
 
 /* The find function takes a role which is a string and a phonebook
    which is an array of json objects. finds the people matching that role
    and returns a list of json objects of the form
    [{employee: 'Ann}, {employee: Clara}]
-
    For example, find('Developer', phonebook) should return
-
    [ { employee: 'Ann' }, { employee: 'Clara' }, { employee: 'Fiona' } ]
  
 */
 
 const find = (role, phonebook) => {
     let answer = [];
-    // TODO
-    return answer
-}
+         for(const contact of phonebook){
+             if(role == contact.role){
+                 answer.push({employee: contact.name})
+             }
+         }
+         return answer;
+
+     }
+    find('Developer', phonebook);
+
 
 
 /*
    The roles function takes a phonebook (an array of json objects) as 
    an argument.  It organizes the phonebook by role returning for each
    role, the names of the people who have that role.
-
    For example. role(phonebook) should return
-
     {
         Developer: [ 'Ann', 'Clara', 'Fiona' ],
         Manager: [ 'Ben', 'Erica' ],
@@ -71,11 +87,27 @@ const find = (role, phonebook) => {
         Sales: [ 'Ichika' ]
     }
 */
+
 const roles = (book) => {
     let answer = {};
-    // TODO
+   
+    for (const contact of book) {
+        if(answer[contact.role]){ //is the current role defined as a property on our answer object yet? 
+            if(answer[contact.role].length > 0) { //is there an array with values at that property?
+                answer[contact.role].push(contact.name);  //if yes push current name
+            }
+        }else {
+            answer[contact.role] = [contact.name]; //if no define role and add array with name inside
+        }
+        
+    }
+
+    console.log(answer);
+
     return answer;
 }
+        
+roles(phonebook);
 
 let answer = getNumber('Clara', phonebook);
 assert.equal(answer, '512.717.5690');

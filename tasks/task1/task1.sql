@@ -1,7 +1,5 @@
-\c postgres
 DROP DATABASE IF EXISTS taskone;
 CREATE DATABASE taskone;
-\c taskone
 
 CREATE TABLE movies (
 	id SERIAL PRIMARY KEY,

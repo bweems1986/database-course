@@ -48,7 +48,6 @@ List All get request. No Parameters,ype:
                     "Bear Trap Campground",
                     "Datil Well Campground",
                     "Apache Creek"]}
-
 */
 app.get("/listAll", (req, res) => {
     res.json({campgrounds: campgrounds.map((entry) => {return entry.name})});
@@ -62,17 +61,31 @@ app.get("/listAll", (req, res) => {
 app.get('/search', (req, res) => {
     let searchTerm = req.query.q;
     console.log(`Search for ${searchTerm}`);
-    
-    // TODO
+    var response = [];
 
-    res.json({});
-})
+    for(var i = 0; i < campgrounds.length; i++){
+        if(searchTerm == campgrounds[i].name){
+            response.push(campgrounds[i].name);
+            response.push(campgrounds[i].town);
+            response.push(campgrounds[i].lengthLimit);
+            response.push(campgrounds[i].elevation);
+            response.push(campgrounds[i].numberOfSites);
+            response.push(campgrounds[i].padType);
+
+
+            
+        }
+    }
+   
+    res.json({name: searchTerm,
+    lengthLimit: response[2],
+    elevation: response[3]});
+});
 
 
 /* Fit get request. One parameter called length which is the length of the RV.
    the request returns the campgrounds that can fit that length RV. 
    so, if the length parameter is 22 the method should return
-
    {
     "campgrounds": [
         {
@@ -111,32 +124,32 @@ app.get('/search', (req, res) => {
         }
     ]
    }
-
    The output needs to match this format. The response json object has a key called 'campgrounds' 
    whose value is an array of json objects each representing a campground. Each of those Json 
    objects in the array have the keys 'campground', 'location', and 'maxLength'.
-
 */
 app.get('/fit', (req, res) => {
 
     // TO DO
-
+    let results = [];
+    
+    for(var i = 0; i < campgrounds.length; i++){//loop over campgrounds if the length limit is greater than the query limit return the results
+        if(campgrounds[i].lengthLimit > req.query.length){
+            results.push({campground: campgrounds[i].name, location: campgrounds[i].town, maxLength: campgrounds[i].lengthLimit});
+         }
+    }
     res.json({campgrounds: results});
-})
 
+})
 
 /*
     elevation get request. This request takes 2 parameters:
-
         altitude:  the elevation specified by the user
         direction: can be either the strings 'higher' or 'lower'
-
     The interpretation of this is as follows. If the request is
-
         /elevation?altitude=8000&direction=higher
     
     then the request should return all camggrounds higher than 8000 feet:
-
     {
     "campgrounds": [
         {
@@ -158,6 +171,31 @@ app.get('/fit', (req, res) => {
 }
 */
 
+app.get('/elevation', (req,res) => {
+
+ let results = [];
+
+
+ if(req.query.direction = "lower"){
+    for(var i = 0; i < campgrounds.length; i++){
+        if(campgrounds[i].elevation < req.query.altitude){
+            results.push({campground: campgrounds[i].name, elevation: campgrounds[i].elevation, town: campgrounds[i].town});
+        }
+    }
+}
+ if(req.query.direction = "higher"){
+    for(var i = 0; i < campgrounds.length; i++){
+        if(campgrounds[i].elevation > req.query.altitude){
+            results.push({campground: campgrounds[i].name, elevation: campgrounds[i].elevation, town: campgrounds[i].town});
+        }
+    }
+}
+
+res.json({campgrounds: results});
+
+
+
+})
   // TO DO
 
 

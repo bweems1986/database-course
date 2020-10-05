@@ -15,11 +15,14 @@ const pool = new Pool(config);
 //  query 1: We want the titles and running time, of all the movies whose running time is less than 100 minutes. 
 //           Ordered by the shortest movie first.
 //
-const query1 = "SELECT * FROM movies";
+const query1 = `SELECT title, mlength FROM movies 
+WHERE(mlength < 100) 
+ORDER BY mlength asc`;
 //
 // query 2: We want the titles of all the movies whose title ends with the letter 'e' ordered alphabetically
 //
-const query2 = "";
+const query2 = `SELECT title FROM movies WHERE title LIKE '%e'
+ORDER BY movies DESC`;
 //
 // query 3: for each genre, the total boxoffice. Ordered by box office total. 
 //          The column with that total should be labeled total_boxoffice. So something that returns:
@@ -32,11 +35,15 @@ const query2 = "";
 //      Comedy      |           370.6
 //      Animation   |           968.5
 //      Action      |         3853.27
-const query3 = "";
+const query3 = `SELECT DISTINCT genre, SUM(boxoffice) as total_boxoffice FROM movies
+GROUP BY genre
+ORDER BY total_boxoffice`;
+
 //
 // query 4: print out the title and boxoffice of the movie with the highest boxoffice.
 //
-const query4 = "";
+const query4 = `SELECT title,boxoffice from movies where boxoffice = (select max(boxoffice) from movies)`
+;
 
 const foo = async(req, res) => {
 
