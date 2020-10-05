@@ -6,7 +6,7 @@ CREATE TABLE workshopserver (
   id SERIAL PRIMARY KEY,
 	workshop TEXT NOT NULL,
 	attendee TEXT NOT NULL
-  ); 
+); 
 
 
 INSERT INTO workshopserver (workshop, attendee)
