@@ -2,6 +2,7 @@ DROP DATABASE IF EXISTS workshopserver;
 CREATE DATABASE workshopserver;
 
 CREATE TABLE workshopserver (
+  id SERIAL PRIMARY KEY,
 	workshop TEXT NOT NULL,
 	attendee TEXT NOT NULL,
 ); 
