@@ -1,8 +1,9 @@
+require("dotenv").config();
 const Pool = require("pg").Pool;
 const config = {
-  host: "localhost" /*process.env.DB_HOST,*/,
-  user: "postgres" /*process.env.DB_USER,*/,
-  password: "bronjiboi" /* process.env.DB_PASS, */,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
   database: "workshopserver",
   port: 5432,
 };
@@ -25,18 +26,19 @@ const getWorkshops = () => {
 const getAttendees = (workshop) => {
   return new Promise(function (resolve, reject) {
     let output = [];
-    pool.query("SELECT * FROM workshops WHERE workshop = $1", [workshop])
-    .then(results => {
-      if (results.rows.length > 0) {
-        output = results.rows[0].attendees.split(",");
-        resolve({ attendees: output });
-      } else {
-        resolve({ error: "workshop not found" });
-      }
-    })
-    .catch( error => {
-      reject(error);
-    });
+    pool
+      .query("SELECT * FROM workshops WHERE workshop = $1", [workshop])
+      .then((results) => {
+        if (results.rows.length > 0) {
+          output = results.rows[0].attendees.split(",");
+          resolve({ attendees: output });
+        } else {
+          resolve({ error: "workshop not found" });
+        }
+      })
+      .catch((error) => {
+        reject(error);
+      });
   });
 };
 
