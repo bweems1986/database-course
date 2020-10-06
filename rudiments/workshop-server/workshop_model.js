@@ -12,11 +12,13 @@ const pool = new Pool(config);
 
 const getWorkshops = () => {
   return new Promise(function (resolve, reject) {
+    let output = [];
     pool.query("SELECT DISTINCT workshop FROM workshops", (error, results) => {
       if (error) {
         reject(error);
       }
-      resolve(results.rows);
+      output = results.rows;
+      resolve(output);
     });
   });
 };

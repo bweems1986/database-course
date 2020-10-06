@@ -17,6 +17,24 @@ VALUES
   ('MongoDB', 'Peyton Manning'),
   ('React Fundamentals', 'Phil Michelson'),
   ('Self-Driving Cars', 'Les Paul'),
-  ('Tensor Flow', 'Ann Smith'),
-  ('Deep Learning', 'Kevin Smith');  
+  ('TensorFlow', 'Ann Smith');  
+
+
+    return new Promise(function (resolve, reject) {
+    let output = [];
+    pool
+      .query("SELECT DISTINCT workshop FROM workshops")
+      .then((results) => {
+        if (results.rows.length > 0) {
+          console.log("got here");
+          output = results.rows;
+          console.log(output);
+          resolve({ workshops: output });
+        }
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
   
