@@ -19,22 +19,4 @@ VALUES
   ('Self-Driving Cars', 'Les Paul'),
   ('TensorFlow', 'Ann Smith');  
 
-
-    return new Promise(function (resolve, reject) {
-    let output = [];
-    pool
-      .query("SELECT DISTINCT workshop FROM workshops")
-      .then((results) => {
-        if (results.rows.length > 0) {
-          console.log("got here");
-          output = results.rows;
-          console.log(output);
-          resolve({ workshops: output });
-        }
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-};
   
