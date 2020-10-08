@@ -1,7 +1,7 @@
 DROP DATABASE IF EXISTS workshopserver;
 CREATE DATABASE workshopserver;
 
-CREATE TABLE workshopserver (
+CREATE TABLE workshops (
   
   id SERIAL PRIMARY KEY,
 	workshop TEXT NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE workshopserver (
 ); 
 
 
-INSERT INTO workshopserver (workshop, attendees)
+INSERT INTO workshops (workshop, attendees)
 VALUES
   ('DevOps 101', 'Brad Weems'),
   ('Docker Container Fundamentals', 'Joe Blow'),

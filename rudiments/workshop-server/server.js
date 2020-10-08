@@ -25,11 +25,7 @@ app.get('/api',  (req, res) => {
   if(!req.query.workshop){
   workshop_model.getWorkshops()
     .then( response => {
-      const output = [];
-      for(const workshop of response ){
-        output.push(workshop.workshop);
-      }
-      res.status(200).send({workshops: output});
+      res.status(200).send({workshops: response});
     })
     .catch( error => {
       res.status(500).send(error);

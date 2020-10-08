@@ -17,7 +17,11 @@ const getWorkshops = () => {
       if (error) {
         reject(error);
       }
-      output = results.rows;
+      
+      for(const workshop of results.rows ){
+        output.push(workshop.workshop);
+      }
+      
       resolve(output);
     });
   });
