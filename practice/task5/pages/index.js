@@ -1,10 +1,19 @@
 import React from "react";
+import {getInfo, getParkInfo} from '../lib/utils.js';
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = { search: "" };
 
+  }
+  async handleUpdate(evt){
+    this.setState({search: evt.target.value});
+  }
+  async handleSearch(evt){
+    const parkInfo = await getInfo(this.state.search);
+    console.log(parkInfo);
+    this.setState({parkInfo});
   }
 
   render() {
@@ -26,12 +35,21 @@ class Home extends React.Component {
             className="input-style"
             type="text"
             value={this.state.search}
+            onChange={this.handleUpdate.bind(this)}
+            
           />
         </p>
 
-        <div className="button-style">
+        <div className="button-style" onClick={this.handleSearch.bind(this)}>
           Submit
         </div>
+        {this.state.parkInfo ? (
+        <div>
+          <h2>{this.state.parkInfo.name}</h2>
+          <h3>{this.state.parkInfo.state}</h3>
+          <h3>{parseInt(this.state.parkInfo.acres).toLocaleString()} acres</h3>
+
+        </div>) : null}
 
         <br />
         <style jsx>{`
