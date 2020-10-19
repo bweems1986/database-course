@@ -42,7 +42,7 @@ app.get('/api',  (req, res) => {
   
 });
 
-//create workshops
+//add attendees
 app.post('/api', (req, res) => {
   workshop_model.addAttendee(req.body)
     .then(response => {

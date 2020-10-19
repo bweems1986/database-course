@@ -4,8 +4,7 @@ CREATE DATABASE workshopserver;
 CREATE TABLE workshops (
   
   id SERIAL PRIMARY KEY,
-	workshop TEXT NOT NULL,
-	attendees TEXT NOT NULL
+	workshop TEXT NOT NULL
 ); 
 
 
@@ -19,4 +18,13 @@ VALUES
   ('Self-Driving Cars', 'Les Paul'),
   ('TensorFlow', 'Ann Smith');  
 
+
+CREATE TABLE attendees (
   
+  id SERIAL PRIMARY KEY,
+	workshop_id INTEGER NOT NULL,
+	attendee TEXT NOT NULL
+); 
+
+SELECT attendees.id, attendees.attendee, workshop, workshop_id FROM attendees INNER JOIN workshops ON 
+attendees.workshop_id = workshops.id;
