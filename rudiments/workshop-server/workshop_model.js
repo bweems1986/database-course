@@ -42,7 +42,6 @@ const getAttendees = (workshop) => {
           for(var i = 0; i < results.rows.length; i++){
             var row = results.rows[i];
             output.push(row.attendee);
-            console.log(row);
           }
           resolve({ attendees: output });
         } else {
@@ -55,6 +54,7 @@ const getAttendees = (workshop) => {
   });
 };
 
+
 const addAttendee = (body) => {
   let initialQuery = "SELECT * FROM workshops WHERE workshop = $1";
   let attendeeCheck = `SELECT *
@@ -66,6 +66,7 @@ const addAttendee = (body) => {
       RETURNING id
     `;
   let insertWorkshop = "INSERT INTO workshops(workshop) VALUES ($1)";
+  let insertAttendee = "INSERT INTO attendees(workshop_id, attendee) VALUES($1,$2)";
   return new Promise(function (resolve, reject) {
     const { workshop, attendee } = body; //deconstructing props into vars
 
@@ -73,31 +74,53 @@ const addAttendee = (body) => {
       resolve({ error: "parameters not given" });
     }
   
-    //this first initialquery checks the workshop table to see if we have the workshop, if we do not then we add it to the workshop table and continue
-    pool
-    .query(initialQuery, [workshop])
-    .then((results) => {
-      if (results.rows.length < 1){
-        pool
-          .query(insertWorkshop, [workshop])
-          .then((results) => {
-            resolve({workshop: workshop})
-          })
-          .catch((err) => {
-            reject(err);
-          });
-      }
-    });
-    //this second initialquery checks to see if the new workshop is in the table if so then add the attendee associated with it, if not then throw error
-    let workshopID;
+    //this first initialquery checks the workshop table first to see if we have the workshop, if we do not then we add it to the workshop table
+    //and add the attendee for that workshop
+    
     pool
       .query(initialQuery, [workshop])
       .then((results) => {
         if (results.rows.length < 1){
-          resolve({error: "workshop not found"});
-        } else {
-          workshopID = results.rows[0].id;
-          //time to check if attendee already exists
+          pool
+            .query(insertWorkshop, [workshop])
+            .then((results) => {
+              console.log("here");
+              let workshopID;
+              pool
+                .query(initialQuery, [workshop])
+                .then((results) => {
+                    workshopID = results.rows[0].id;
+                    pool
+                      .query(attendeeCheck, [workshopID, attendee])
+                      .then((results) => {
+                        if(results.rows.length > 0){
+                          resolve({error: "attendee already enrolled"});
+                        } else {
+                          pool.query(insertQuery, [workshopID, attendee])
+                          .then((results) => {
+                            console.log("hereee");
+                            resolve({attendee: attendee, workshop: workshop});
+                          })
+                          .catch((err) =>{
+                            reject(err);
+                          });
+                        }
+                      })
+                      .catch((err) => {
+                        reject(err);
+                      })
+                })
+                .catch((err) => {
+                  reject(err);
+                });
+
+            })
+            .catch((err) => {
+              reject(err);
+            });
+        }else{
+          
+          let workshopID = results.rows[0].id;
           pool
             .query(attendeeCheck, [workshopID, attendee])
             .then((results) => {
@@ -106,6 +129,7 @@ const addAttendee = (body) => {
               } else {
                 pool.query(insertQuery, [workshopID, attendee])
                 .then((results) => {
+                  console.log("hereee");
                   resolve({attendee: attendee, workshop: workshop});
                 })
                 .catch((err) =>{
@@ -116,12 +140,11 @@ const addAttendee = (body) => {
             .catch((err) => {
               reject(err);
             })
-          }
-      })
-      .catch((err) => {
-        reject(err);
-      });
-  
+           
+        }
+      
+    });
+    
   });
 };
 
