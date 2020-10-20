@@ -66,7 +66,6 @@ const addAttendee = (body) => {
       RETURNING id
     `;
   let insertWorkshop = "INSERT INTO workshops(workshop) VALUES ($1)";
-  let insertAttendee = "INSERT INTO attendees(workshop_id, attendee) VALUES($1,$2)";
   return new Promise(function (resolve, reject) {
     const { workshop, attendee } = body; //deconstructing props into vars
 
@@ -74,8 +73,6 @@ const addAttendee = (body) => {
       resolve({ error: "parameters not given" });
     }
   
-    //this first initialquery checks the workshop table first to see if we have the workshop, if we do not then we add it to the workshop table
-    //and add the attendee for that workshop
     
     pool
       .query(initialQuery, [workshop])
