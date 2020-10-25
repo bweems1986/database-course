@@ -27,7 +27,7 @@ CREATE TABLE attendees (
 ); 
 
 
-CREATE DATABASE workshopserver2;
+CREATE DATABASE workshopserver;
 
 CREATE TABLE workshops (
   
@@ -41,14 +41,14 @@ CREATE TABLE workshops (
 
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
-    username TEXT NOT NULL,
-    firstname TEXT NOT NULL,
-    lastname TEXT NOT NULL,
-    email TEXT NOT NULL
+    username TEXT,
+    firstname TEXT,
+    lastname TEXT,
+    email TEXT 
 );
 
  
-CREATE TABLE attendees (
+CREATE TABLE enrollments (
   
   workshop_id INTEGER REFERENCES workshops(workshop_id),
   user_id INTEGER REFERENCES users(user_id),
