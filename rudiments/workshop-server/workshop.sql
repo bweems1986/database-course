@@ -27,7 +27,6 @@ CREATE TABLE attendees (
 ); 
 
 
-***********this is the setup for the second version database*************
 CREATE DATABASE workshopserver2;
 
 CREATE TABLE workshops (

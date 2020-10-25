@@ -177,7 +177,7 @@ const enroll = (body) => {
   return new Promise(function (resolve, reject) {
 
     const {title, date, location, maxseats, instructor, username} = body;
-    console.log(maxseats);
+
     pool
       .query(usernameCheck,[username])
       .then((results) => {
