@@ -60,6 +60,8 @@ else
 
 ### 2. Delete request: /delete-user
 
+
+
 #### Request
 
 X-www-form-urlencoded body variables:
@@ -80,6 +82,8 @@ X-www-form-urlencoded body variables:
 
 
 ### 3. Get request: /list-users
+
+
 
 #### Request
 
@@ -224,6 +228,8 @@ Else
 **Notes:** Enrolls a user in a workshop
 
 ### 6. Get request: /list-workshops
+
+
 
 #### Request
 
