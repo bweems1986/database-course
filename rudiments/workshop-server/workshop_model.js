@@ -398,7 +398,6 @@ WHERE title = $1
 AND date = $2 
 AND location = $3`;
 let workShopCheck = "SELECT title, date, location FROM workshops WHERE title = $1 AND date = $2 AND location = $3";
-let output = [];
 
   return new Promise(function (resolve, reject) {
 
