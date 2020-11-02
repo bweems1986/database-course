@@ -1,7 +1,15 @@
 import Link from 'next/link'
 
 const linkStyle = {
-  marginRight: 15
+  marginLeft: "225px",
+  marginBottom: "200px",
+  padding: "100px",
+  display: "inline",
+  textAlign: "center",
+  fontSize: "1.5em",
+  color: "#000000"
+
+
 }
 
 export default function Header() {
