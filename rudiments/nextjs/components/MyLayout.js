@@ -9,7 +9,8 @@ const layoutStyle = {
   position: "fixed", 
   top: 0, 
   left: 0,
-  bottom: 0, 
+  bottom: 0,
+  overflow: auto, 
 	
   /* Preserve aspet ratio */
   minWidth: "100%",
