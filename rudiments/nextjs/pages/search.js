@@ -7,7 +7,6 @@ class Home extends React.Component {
     super(props);
 
     this.state = { search: "" };
-    //this.handleSearch();
   }
   handleUpdate(evt) {
     this.setState({ search: evt.target.value });
@@ -23,7 +22,7 @@ class Home extends React.Component {
   render() {
     const that = this;
     return (
-      <Layout>
+      <Layout overflow="auto">
         <h2>Campground Search</h2>
         <p style={{width:"600px", margin: "auto auto", paddingTop: "10px", paddingRight:"78px", textAlign: "center"}}>
         <input

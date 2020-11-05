@@ -1,6 +1,8 @@
 import Layout from "../components/MyLayout.js";
 import Router from "next/router";
 import jsCookie from "js-cookie";
+import {getLogin} from '../lib/utils.js';
+
 
 class Login extends React.Component {
   constructor(props) {
@@ -9,6 +11,26 @@ class Login extends React.Component {
     this.state = { username: "", password: "" };
     //this.handleSearch();
   }
+
+  async handleUsernameUpdate(evt){
+    this.setState({username: evt.target.value});
+}
+  async handlePasswordUpdate(evt){
+    this.setState({password: evt.target.value});
+}
+
+async handleSearch(evt){
+  let loggedInUser = await getLogin({
+    username: this.state.username,
+    password: this.state.password
+  });
+  console.log(loggedInUser);
+  this.setState({loggedInUser});
+  if (loggedInUser.status == "success"){
+    jsCookie.set("screenname", loggedInUser.screenname);
+    Router.replace("/secret");
+  }
+}
 
   render() {
     const that = this;
@@ -25,6 +47,8 @@ class Login extends React.Component {
           id="username"
           className="input-style"
           value={this.state.username}
+          onChange={this.handleUsernameUpdate.bind(this)}
+
         />
         <br /> <br />
         <label htmlFor="password" className="text-style">
@@ -35,6 +59,8 @@ class Login extends React.Component {
           id="password"
           className="input-style"
           value={this.state.password}
+          onChange={this.handlePasswordUpdate.bind(this)}
+
         />
         <br /> <br />
         <label htmlFor="screenname" className="text-style">
@@ -48,7 +74,7 @@ class Login extends React.Component {
         />
         <br />
         <br />
-        <div className="button-style">Submit</div>
+        <div className="button-style" onClick={this.handleSearch.bind(this)}>Submit</div>
         <br /> <br />
         <style jsx>{`
           h1,

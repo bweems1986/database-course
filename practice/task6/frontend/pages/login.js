@@ -25,13 +25,14 @@ class Login extends React.Component {
     console.log(loggedInUser);
     this.setState({loggedInUser});
     if (loggedInUser.status == "success"){
-      jsCookie.set("screenname", user_info.screenname);
+      jsCookie.set("screenname", loggedInUser.screenname);
       Router.replace("/secret");
     }
   }
 
   render() {
     const that = this;
+    jsCookie.remove("screenname");
     return (
       <Layout
         style={{ margin: "auto auto", width: "600px", textAlign: "center" }}
