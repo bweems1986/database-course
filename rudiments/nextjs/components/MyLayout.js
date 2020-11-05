@@ -10,7 +10,7 @@ const layoutStyle = {
   top: 0, 
   left: 0,
   bottom: 0,
-  overflow: scroll, 
+  overflow: "scroll", 
 	
   /* Preserve aspet ratio */
   minWidth: "100%",
