@@ -22,7 +22,7 @@ class Home extends React.Component {
   render() {
     const that = this;
     return (
-      <Layout overflow="auto">
+      <Layout>
         <h2>Campground Search</h2>
         <p style={{width:"600px", margin: "auto auto", paddingTop: "10px", paddingRight:"78px", textAlign: "center"}}>
         <input
