@@ -1,14 +1,14 @@
 import Layout from "../components/MyLayout.js";
 import Router from "next/router";
 import jsCookie from "js-cookie";
-import {getLogin} from '../lib/utils.js';
+import {createAccount} from '../lib/utils.js';
 
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { username: "", password: "" };
+    this.state = { username: "", password: "", screenname: "" };
     //this.handleSearch();
   }
 
@@ -19,10 +19,15 @@ class Login extends React.Component {
     this.setState({password: evt.target.value});
 }
 
+  async handleScreennameUpdate(evt){
+    this.setState({screenname: evt.target.value});
+}
+
 async handleSearch(evt){
-  let loggedInUser = await getLogin({
+  let loggedInUser = await createAccount({
     username: this.state.username,
-    password: this.state.password
+    password: this.state.password,
+    screenname: this.state.screenname
   });
   console.log(loggedInUser);
   this.setState({loggedInUser});
@@ -71,6 +76,7 @@ async handleSearch(evt){
           id="screenname"
           className="input-style"
           value={this.state.screenname}
+          onChange={this.handleScreennameUpdate.bind(this)}
         />
         <br />
         <br />

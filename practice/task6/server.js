@@ -26,29 +26,19 @@ app.post("/login", async (req, res) => {
   const password = req.body.password;
   try {
     const query =
-      "SELECT screenname, password FROM users WHERE username = $1 and password=$2";
-    const result = await pool.query(query, [username, password]);
+      "SELECT screenname,password FROM users WHERE username = $1";
+    const result = await pool.query(query, [username]);
     console.log(result);
     if (result.rowCount == 1) {
-      console.log(result.rows[0]);
       console.log(result.rows[0].password);
       if(await argon2.verify(result.rows[0].password, password)){
-        console.log("Login succeeded");
         res.json({ status: "success", screenname: result.rows[0].screenname });
+      } else {
+        res.json({ error: "Password Incorrect" });
       }
       
-    } else {
-      // now need to see if the problem is the username or the password
-      // note: there is an easier way to do this but I didn't want to give you
-      // too many clues!
-      const query2 =
-        "SELECT screenname, password FROM users WHERE username = $1";
-      const result2 = await pool.query(query2, [username]);
-      if (result2.rowCount == 1) {
-        res.json({ error: "Password Incorrect" });
-      } else {
-        res.json({ error: "Username not found" });
-      }
+    } else {      
+        res.json({ error: "Username not found" });  
     }
   } catch (err) {
     console.log("ERROR " + err);
@@ -61,7 +51,7 @@ app.post("/create", async (req, res) => {
   const password = req.body.password;
   const screenname = req.body.screenname;
   try {
-    hash = await argon2.hash(password, "abcdefghijklmnop");
+    hash = await argon2.hash(password);
     console.log("HASH" + hash);
     const query =
       "INSERT INTO users (username, password, screenname) VALUES ($1, $2, $3)";

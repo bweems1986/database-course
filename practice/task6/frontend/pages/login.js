@@ -1,6 +1,6 @@
 import Layout from "../components/MyLayout.js";
 import Router from "next/router";
-import jsCookie, { getJSON } from "js-cookie";
+import jsCookie from "js-cookie";
 import {getLogin} from '../lib/utils.js';
 
 class Login extends React.Component {
@@ -18,12 +18,13 @@ class Login extends React.Component {
 }
 
   async handleSearch(evt){
-    let loggedInUser = await getLogin({
+    
+    const loggedInUser = await getLogin({
       username: this.state.username,
       password: this.state.password
     });
-    console.log(loggedInUser);
-    this.setState({loggedInUser});
+
+    this.setState({ loggedInUser });
     if (loggedInUser.status == "success"){
       jsCookie.set("screenname", loggedInUser.screenname);
       Router.replace("/secret");
@@ -64,7 +65,7 @@ class Login extends React.Component {
         <br />
         <br />
         <br />
-        <div className="button-style" onClick={this.handleSearch.bind(this)}>Submit</div>
+        <div className="button-style" onClick={this.handleSearch.bind(that)}>Submit</div>
         <br /> <br />
         <style jsx>{`
           h1,

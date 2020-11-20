@@ -41,7 +41,7 @@ choline_tot_mg real,
 vit_b12_ug real,
 vit_a_iu real,
 vit_a_rae real,
-retinol_ug real,q
+retinol_ug real,
 alpha_carot_ug real,
 beta_carot_ug real,
 beta_crypt_ug real,
