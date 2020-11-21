@@ -2,11 +2,11 @@
   "name": "hello-next",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "serverWebApp.js",
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "node server.js"
+    "dev": "next1",
+    "build": "next1 build",
+    "start": "next1 start"
   },
   "keywords": [],
   "author": "",

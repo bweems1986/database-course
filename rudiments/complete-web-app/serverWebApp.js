@@ -28,7 +28,7 @@ app.get("/hello", (req, res) => {
 });
 
 //maybe do a check here and do nothing if searchterm is nothing?
-app.get('/index', async (req, res) => {
+app.get('/api/index', async (req, res) => {
     let searchTerm = req.query.description;
     let upper = searchTerm.charAt(0).toUpperCase() + searchTerm.substring(1);
     console.log(`Search for ${searchTerm}`);

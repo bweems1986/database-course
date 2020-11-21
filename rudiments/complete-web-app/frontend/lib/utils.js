@@ -2,7 +2,7 @@ require("isomorphic-fetch");
 import BPromise from "bluebird";
 
 function getFoodInfo(description) {
-  return fetch(`http://localhost:8080/index?description=${description}`).then(function(resp){
+  return fetch(`http://34.106.223.25/api/index?description=${description}`).then(function(resp){
     return resp.json();
   }) 
 }
