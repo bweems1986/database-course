@@ -35,7 +35,7 @@ app.get('/api/index', async (req, res) => {
 //%+searchTerm+% this works except returns any matching characters
     
     try {
-       const template = "SELECT description, kcal, fa_sat_g, fa_mono_g, fa_poly_g FROM entries WHERE description ILIKE '%"+searchTerm+"%' LIMIT 25";
+       const template = "SELECT description, kcal, fa_sat_g, fa_mono_g, fa_poly_g FROM entries WHERE description ILIKE '"+searchTerm+"%'  LIMIT 25";
        const dbresponse = await pool.query(template);
        const results = dbresponse.rows.map((row) => {return row});
        res.json({food: results})
