@@ -1,4 +1,5 @@
 import Layout from "../components/MyLayout.js";
+import React, { useState, useEffect } from 'react';
 
 import { getInfo } from "../lib/utils";
 
@@ -6,11 +7,11 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { search: "" };
+    this.state = { search: '' };
     //this.handleSearch();
   }
-   async handleUpdate(evt) {
-    this.setState({ search: evt.target.value });
+    handleUpdate(evt) {
+    this.setState({ search: evt.target.value }, this.handleSearch);
   }
 
   async handleSearch(evt) {
@@ -19,14 +20,13 @@ class Home extends React.Component {
     this.setState({ food });
     
   }
-
-   handleInput(evt){
+  
+    handleInput(evt){
     
     this.handleUpdate(evt);
     this.handleSearch(evt);
   }
   
-
   render() {
     const that = this;
     return (
@@ -37,7 +37,7 @@ class Home extends React.Component {
         <input
           type="text"
           className="text-style"
-          value={this.state.search}//something wrong here, when value is zero results are still displayed
+          value={this.state.search}
           onChange={this.handleInput.bind(that)}
         />
         <br />

@@ -1,0 +1,17 @@
+{
+
+    "query1": "SELECT movie.title as film FROM movie INNER JOIN casting ON movie.id = casting.movieid INNER JOIN actor ON actor.id = casting.actorid WHERE actor.id = '17'",
+    "query2": "SELECT * FROM movie",
+    "query3": "SELECT * FROM movie",
+    "query4": "SELECT * FROM movie",
+    "query5": "SELECT * FROM movie",
+    "query6": "SELECT * FROM movie",
+    "query7": "SELECT * FROM movie",
+    "query8": "SELECT * FROM movie",
+    "query9": "SELECT * FROM movie",
+    "query10": "SELECT * FROM movie"
+  }
+
+  // select movie.title as film from movie inner join casting on movie.id = casting.movieid 
+// inner join actor on actor.id = casting.actorid where actor.id = '17'
+// select actor.name as actor from actor inner join casting on actor.id = casting.actorid where actor.id = '17';
