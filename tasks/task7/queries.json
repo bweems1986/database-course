@@ -1,17 +1,14 @@
 {
 
-    "query1": "SELECT movie.title as film FROM movie INNER JOIN casting ON movie.id = casting.movieid INNER JOIN actor ON actor.id = casting.actorid WHERE actor.id = '17'",
-    "query2": "SELECT * FROM movie",
-    "query3": "SELECT * FROM movie",
-    "query4": "SELECT * FROM movie",
-    "query5": "SELECT * FROM movie",
-    "query6": "SELECT * FROM movie",
-    "query7": "SELECT * FROM movie",
-    "query8": "SELECT * FROM movie",
-    "query9": "SELECT * FROM movie",
-    "query10": "SELECT * FROM movie"
+    "query1": "select movie.title as film, actor.name as actor from movie inner join casting on movie.id=casting.movieid inner join actor on casting.actorid = actor.id where actor.id = '17' order by movie.title",
+    "query2": "select title as film, score as rating from movie inner join casting on movie.id=casting.movieid inner join actor on casting.actorid = actor.id where actor.name = 'Sandra Bullock' order by score desc limit 1",
+    "query3": "select actor.name as actor from movie inner join casting on movie.id=casting.movieid inner join actor on casting.actorid = actor.id where movie.title = 'Blade Runner' order by actor.name asc",
+    "query4": "select movie.title as film, actor.name as director from movie inner join casting on movie.id=casting.movieid inner join actor on actor.id = casting.actorid where actor.id = movie.director group by movie.title, actor.name order by actor.name, movie.title",
+    "query5": "select actor.name as actor, count(actor.name) as films from movie inner join casting on movie.id=casting.movieid inner join actor on actor.id = casting.actorid group by actor.name having count(*) > 9 order by films desc, actor.name",
+    "query6": "Select distinct actor.name as actors from actor inner join casting on actor.id = casting.actorid inner join movie on movie.id = casting.movieid and movie.id in ( select casting.movieid from casting where casting.actorid = (select actor.id from actor where name = 'Michelle Pfeiffer')) except select actor.name from actor where actor.name = 'Michelle Pfeiffer' order by actors asc",
+    "query7": "select distinct artist.name as artist, count(album.albumid) as albums from album inner join artist on album.artistid = artist.artistid group by artist.name order by count(album.albumid) desc limit 5",
+    "query8": "select title as album from album inner join artist on album.artistid = artist.artistid where artist.name = 'Santana' order by title asc",
+    "query9": "SELECT e.firstname as employee_firstname, e.lastname AS employee_lastname, m.firstname as manager_firstname, m.lastname AS manager_lastname FROM employee e INNER JOIN employee m ON m.employeeid = e.reportsto ORDER BY employee_lastname;",
+    "query10": "select artist.name as artist, count(invoiceline.trackid) as tracks_sold from artist inner join album on album.artistid = artist.artistid inner join track on track.albumid = album.albumid inner join invoiceline on invoiceline.trackid = track.trackid group by artist.name order by tracks_sold desc limit 1"
   }
 
-  // select movie.title as film from movie inner join casting on movie.id = casting.movieid 
-// inner join actor on actor.id = casting.actorid where actor.id = '17'
-// select actor.name as actor from actor inner join casting on actor.id = casting.actorid where actor.id = '17';
