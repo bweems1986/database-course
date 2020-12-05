@@ -12,7 +12,7 @@ const indexLink = {
 
 export default function Index() {
   return (
-    <div className= "container" style={{background: "linear-gradient(#00bf8f, #001510)"}}>
+    <div className= "container" >
     <Layout>
       <br />
       <h1>Search for Information About Your Local Community</h1>
@@ -26,6 +26,7 @@ export default function Index() {
 
         h1 {
           text-align: center;
+          color: #1f618d;          
         }
 
         p {

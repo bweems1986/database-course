@@ -2,11 +2,11 @@
   "name": "supersearch",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "serverSuper.js",
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start"
+    "dev": "next3",
+    "build": "next3 build",
+    "start": "next3 start"
   },
   "keywords": [],
   "author": "",

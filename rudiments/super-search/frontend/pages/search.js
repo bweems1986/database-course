@@ -24,19 +24,12 @@ class Home extends React.Component {
   }
 
   async handleSearch(evt) {
-    
     const results = await getLoggedInfo(this.state.search,jsCookie.get("screenname"));
     this.setState({ results })
-    console.log(results + "adsfadsf");
     if(results === null){
-      console.log("we up in this bitch?");
       const results = await getNotLogged(this.state.search);
-      console.log(results + "results?");
-      console.log("again?");
       this.setState({ results })
-
-    }
-    
+    }   
   }
 
   async handleInput(evt){
@@ -139,9 +132,10 @@ class Home extends React.Component {
           h3,
           h4,
           a,
+          td,
           p {
+            color: #1f618d;          
             font-family: "Arial";
-            color: #006600;
           }
 
           .button-style {
@@ -184,6 +178,27 @@ class Home extends React.Component {
 
           a:hover {
             opacity: 0.6;
+          }
+
+          table {  
+            color: #333; /* Lighten up font color */
+            font-family: Helvetica, Arial, sans-serif; /* Nicer font */
+            width: 100%; 
+            border-collapse: 
+            collapse; 
+            border-spacing: 0;
+          }
+        
+          td, th { border: 1px solid #CCC; height: 30px; } /* Make cells a bit taller */
+        
+          th {  
+            background: #F3F3F3; /* Light grey background */
+            font-weight: bold; /* Make sure they're bold */
+          }
+        
+          td {  
+            background: #FAFAFA; /* Lighter grey background */
+            text-align: center; /* Center our text */
           }
         `}</style>
       </Layout>

@@ -21,7 +21,7 @@ const config = {
 };
 
 
-app.post("/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
   console.log("LOGIN ", req.body);
   const username = req.body.username;
   const password = req.body.password;
@@ -46,7 +46,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.post("/create", async (req, res) => {
+app.post("/api/create", async (req, res) => {
   let hash;
   const username = req.body.username;
   const password = req.body.password;
@@ -73,7 +73,7 @@ app.post("/create", async (req, res) => {
   }
 });
 
-app.get('/search', async (req, res) => {
+app.get('/api/search', async (req, res) => {
   let searchTerm = req.query.name;
   let userName = req.query.screenname;
   let searchResults = [];
@@ -101,7 +101,6 @@ if(userName !== undefined){
 
 //this if block will have all queries for a logged in user
 if(zipResults.length > 0){
-//search all movies
   if(searchTerm !== "movies"){
     try{
       //search by type
@@ -203,9 +202,7 @@ if(zipResults.length > 0){
 
 //this if block has all queries for a non-logged in user
 if(zipResults.length === 0){
-  //search all movies
   if(searchTerm !== "movies"){
-    ////////////////////////
         //search by type
         try {
           const template = "select name, restaurant_type, address, city, zip from stores inner join store_type on store_type.storeid = stores.storeid inner join types on types.typeid = store_type.typeid where position(LOWER('"+searchTerm+"') IN lower(types.restaurant_type)) > 0";
@@ -288,7 +285,6 @@ if(zipResults.length === 0){
         } catch (err){
           console.log(err);
       }
-    ////////////////
     
       }else{
         try {

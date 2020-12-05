@@ -75,7 +75,7 @@ export default function Header() {
         h1 {
           font-size: 2.1rem;
           font-family: "Arial";
-          color: #125213;
+          //color: #125213;
         }
         h2 {
           font-family: "Arial";
