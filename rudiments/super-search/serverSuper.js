@@ -21,8 +21,7 @@ const config = {
 };
 
 
-app.post("/api/login", async (req, res) => {
-  console.log("LOGIN ", req.body);
+app.post("/login", async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   try {
@@ -46,7 +45,7 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-app.post("/api/create", async (req, res) => {
+app.post("/create", async (req, res) => {
   let hash;
   const username = req.body.username;
   const password = req.body.password;
@@ -73,7 +72,7 @@ app.post("/api/create", async (req, res) => {
   }
 });
 
-app.get('/api/search', async (req, res) => {
+app.get('/search', async (req, res) => {
   let searchTerm = req.query.name;
   let userName = req.query.screenname;
   let searchResults = [];
@@ -159,6 +158,13 @@ if(zipResults.length > 0){
                 restaurant_name: [],
                 theater_name: results
               })
+            }else {
+              res.json({
+                movie_name: [],
+                restaurant_type: [],
+                restaurant_name: [],
+                theater_name: []
+              })
             }
             } catch (err){
               console.log(err);
@@ -203,7 +209,7 @@ if(zipResults.length > 0){
 //this if block has all queries for a non-logged in user
 if(zipResults.length === 0){
   if(searchTerm !== "movies"){
-        //search by type
+        //search by type this template is matching substrings, need to match full
         try {
           const template = "select name, restaurant_type, address, city, zip from stores inner join store_type on store_type.storeid = stores.storeid inner join types on types.typeid = store_type.typeid where position(LOWER('"+searchTerm+"') IN lower(types.restaurant_type)) > 0";
           const dbresponse = await pool.query(template);
@@ -261,6 +267,13 @@ if(zipResults.length === 0){
                       restaurant_type: [],
                       restaurant_name: [],
                       theater_name: results
+                    })
+                  } else {
+                    res.json({
+                      movie_name: [],
+                      restaurant_type: [],
+                      restaurant_name: [],
+                      theater_name: []
                     })
                   }
                   }

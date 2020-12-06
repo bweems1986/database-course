@@ -5,7 +5,7 @@ function getLoginInfo(user_info) {
   const header = {'Accept' : "application/json",
                   "Content-Type": "application/x-www-form-urlencoded"};
   const searchParams = new URLSearchParams(user_info);
-  return fetch("http://34.106.223.25/api/login",
+  return fetch("http://localhost:8080/login",
   { method: "POST",
     headers: header,
     body: searchParams}).then(function (resp){
@@ -17,7 +17,7 @@ function getRegisterInfo(user_info) {
   const header = {'Accept' : "application/json",
                   "Content-Type": "application/x-www-form-urlencoded"};
   const searchParams = new URLSearchParams(user_info);
-  return fetch("http://34.106.223.25/api/create",
+  return fetch("http://localhost:8080/create",
   { method: "POST",
     headers: header,
     body: searchParams}).then(function (resp){
@@ -26,14 +26,14 @@ function getRegisterInfo(user_info) {
 }
 
 function getCommunityLoggedInInfo(name,userName) {
-  return fetch(`http://34.106.223.25/api/search?name=${name}&screenname=${userName}`).then(function(resp){
+  return fetch(`http://localhost:8080/search?name=${name}&screenname=${userName}`).then(function(resp){
     console.log(userName);
     return resp.json();
     })
 }
 
 function getCommunityNotLoggedInfo(name){
-  return fetch(`http://34.106.223.25/api/search?name=${name}`).then(function(resp){
+  return fetch(`http://localhost:8080/search?name=${name}`).then(function(resp){
       console.log(name);
       return resp.json();
     })
@@ -58,7 +58,6 @@ module.exports = {
     return getRegisterInfo(user_info).catch(handleError);
   },
   getLogin: function (user_info) {
-    console.log(user_info);//{username: , password: }
     return getLoginInfo(user_info).catch(handleError);
   },
   getLoggedInfo: function(community_info,user_info){

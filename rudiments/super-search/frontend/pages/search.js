@@ -7,7 +7,7 @@ class Home extends React.Component {
     super(props);
 
     this.state = { 
-      search: "",
+      search: '',
       results: {
         movie_name: [],
         restaurant_type: [],
@@ -20,22 +20,50 @@ class Home extends React.Component {
   }
 
   handleUpdate(evt) {
-    this.setState({ search: evt.target.value }, this.handleSearch);
+    this.setState({ search: evt.target.value }, this.handleSearch);    
   }
 
   async handleSearch(evt) {
-    const results = await getLoggedInfo(this.state.search,jsCookie.get("screenname"));
-    this.setState({ results })
-    if(results === null){
+    //no user
+    if(jsCookie.get("screenname") == undefined){
       const results = await getNotLogged(this.state.search);
-      this.setState({ results })
-    }   
+      if(results){
+        this.setState({ results: results });
+      } else {
+        this.setState({ 
+          results: {
+            movie_name: [],
+            restaurant_type: [],
+            restaurant_name: [],
+            theater_name: []
+          } 
+        });
+      }
+    }else {
+      //with a user
+      const results = await getLoggedInfo(this.state.search,jsCookie.get("screenname"));
+      if(results){
+        this.setState({ results: results });
+      } else {
+        this.setState({ 
+          results: {
+            movie_name: [],
+            restaurant_type: [],
+            restaurant_name: [],
+            theater_name: []
+          } 
+        });
+      }
+    }
+          
   }
 
-  async handleInput(evt){
+   handleInput(evt){
     this.handleUpdate(evt);
     this.handleSearch(evt);
   }
+
+ 
 
   render() {
     const that = this;
@@ -48,12 +76,13 @@ class Home extends React.Component {
           type="text"
           className="text-style"
           value={this.state.search}
-          onChange={this.handleInput.bind(this)}
+          onChange={this.handleInput.bind(that)}
         />
         <br />
         <br />
         
         <br /> <br />
+      
         {this.state.results.restaurant_type.length > 0 && this.state.search !== '' ? (
           <table id="entries">
 
