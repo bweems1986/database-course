@@ -1,0 +1,18 @@
+{
+  "name": "core-competency",
+  "version": "1.0.0",
+  "description": "The first node rudiment",
+  "main": "serverCore.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node serverCore.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dateformat": "^3.0.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "pg": "^8.2.1"
+  }
+}
