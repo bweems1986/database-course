@@ -66,7 +66,7 @@ const addReview = (body) => {
 };
 
 const getReview = (name, zip) => {
-    let reviews = "select reviewer, review_date, stars, review from review where name = $1 and zip = $2";
+    let reviews = "select reviewer, review_date, stars, review from review where name = $1 and zip = $2 order by stars desc";
     return new Promise(function (resolve, reject) {
       pool
         .query(reviews, [name, zip])
